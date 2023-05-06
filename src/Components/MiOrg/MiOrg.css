@@ -18,3 +18,15 @@
     right: 30%;
     cursor: pointer;
 }
+
+@media screen and (max-device-width: 1024px) {
+	.title {
+		font-size: 1.5rem;
+		display: flex;
+	}
+
+	.orgSection img {
+		position: static;
+		width: 10%;
+	}
+}
