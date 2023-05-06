@@ -16,6 +16,7 @@ function App() {
 			foto: "https://github.com/harlandlohora.png",
 			nombre: "Harland Lohora",
 			puesto: "Instructor",
+			fav: true,
 		},
 		{
 			id: uuid(),
@@ -23,6 +24,7 @@ function App() {
 			foto: "https://github.com/genesysaluralatam.png",
 			nombre: "Genesys Rondón",
 			puesto: "Desarrolladora de software e instructora",
+			fav: false,
 		},
 		{
 			id: uuid(),
@@ -30,6 +32,7 @@ function App() {
 			foto: "https://github.com/JeanmarieAluraLatam.png",
 			nombre: "Jeanmarie Quijada",
 			puesto: "Instructora en Alura Latam",
+			fav: false,
 		},
 		{
 			id: uuid(),
@@ -37,6 +40,7 @@ function App() {
 			foto: "https://github.com/christianpva.png",
 			nombre: "Christian Velasco",
 			puesto: "Head de Alura e Instructor",
+			fav: false,
 		},
 		{
 			id: uuid(),
@@ -44,6 +48,7 @@ function App() {
 			foto: "https://github.com/JoseDarioGonzalezCha.png",
 			nombre: "Jose Gonzalez",
 			puesto: "Dev FullStack",
+			fav: false,
 		},
 	]);
 
@@ -117,14 +122,26 @@ function App() {
 
 	//Eliminar colaborador
 	const eliminarColaborador = (id) => {
-		const nuevosColaboradores = colaboradores.filter((colaborador) => colaborador.id != id)
-		actualizarColaboradores(nuevosColaboradores)
+		const nuevosColaboradores = colaboradores.filter(
+			(colaborador) => colaborador.id !== id,
+		);
+		actualizarColaboradores(nuevosColaboradores);
 	};
 
 	//Registrar equipo
 	const registrarEquipo = (nuevoEquipo) => {
 		//Spread operator
-		actualizarEquipos([...equipos, {...nuevoEquipo, id: uuid()}]);
+		actualizarEquipos([...equipos, { ...nuevoEquipo, id: uuid() }]);
+	};
+
+	const like = (id) => {
+		const likeActualizado = colaboradores.map((colaborador) => {
+			if (colaborador.id === id) {
+				colaborador.fav = !colaborador.fav;
+			}
+			return colaborador;
+		});
+		actualizarColaboradores(likeActualizado);
 	};
 
 	return (
@@ -147,6 +164,7 @@ function App() {
 					)}
 					eliminarColaborador={eliminarColaborador}
 					actualizarColor={actualizarColor}
+					like={like}
 				/>
 			))}
 			<Footer />
